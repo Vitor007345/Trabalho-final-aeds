@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1750875775 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
+	<iostream>
+	"data.hpp"
+
+1750879848 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.hpp
+	<string>
+
+1750886529 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.cpp
+	<string>
+	<stdexcept>
+	<ctime>
+	<sstream>
+	<iomanip>
+	<cstdio>
+	"data.hpp"
+
