@@ -58,6 +58,15 @@ Date::Date(const std::string& dateStr){
         throw runtime_error("Data invalida");
     }
 }
+Date::Date(const Date& date){
+    this->setDate(date); //não precisa checar se deu errado e lançar erro, pq uma instancia de data sempre é valida
+}
+Date::Date(const Date* date): Date::Date(*date){}
+Date::Date(int year){
+    if(!this->setDate(year)){
+        throw runtime_error("Data invalida");
+    }
+}
 
 
 int Date::getDay() const{return this->day;}
@@ -118,6 +127,18 @@ bool Date::setDate(const std::string& dateStr){
     sscanf(dateStr.c_str(), "%d/%d/%d", &day, &month, &year);
     return this->setDate(day, month, year);
 }
+
+bool Date::setDate(int year){
+    return this->setDate(1, 1, year);
+}
+
+bool Date::setDate(const Date& date){
+    return this->setDate(date.getDay(), date.getMonth(), date.getYear());
+}
+bool Date::setDate(const Date* date){
+    return this->setDate(*date);
+}
+
 
 
 

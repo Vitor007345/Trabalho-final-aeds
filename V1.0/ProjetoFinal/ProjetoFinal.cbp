@@ -35,6 +35,8 @@
 		<Unit filename="data.cpp" />
 		<Unit filename="data.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="person.cpp" />
+		<Unit filename="person.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

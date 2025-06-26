@@ -20,6 +20,9 @@ class Date{
         Date();
         Date(int day, int month, int year);
         Date(const std::string& dateStr);
+        Date(int year);
+        Date(const Date& date);
+        Date(const Date* date);
 
         int getDay() const;
         int getMonth() const;
@@ -34,6 +37,9 @@ class Date{
         bool setDate();
         bool setDate(int day, int month, int year);
         bool setDate(const std::string& dateStr);
+        bool setDate(int year);
+        bool setDate(const Date& date);
+        bool setDate(const Date* date);
 
 
         bool isLeap() const;
