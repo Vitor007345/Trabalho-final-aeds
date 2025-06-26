@@ -22,3 +22,29 @@
 	<string>
 	"data.hpp"
 
+1750933537 source:c:\users\1589988\desktop\c++\trabfinalaeds\v1.0\projetofinal\data.cpp
+	<string>
+	<stdexcept>
+	<ctime>
+	<sstream>
+	<iomanip>
+	<cstdio>
+	"data.hpp"
+
+1750933537 c:\users\1589988\desktop\c++\trabfinalaeds\v1.0\projetofinal\data.hpp
+	<string>
+
+1750933537 source:c:\users\1589988\desktop\c++\trabfinalaeds\v1.0\projetofinal\main.cpp
+	<iostream>
+	"data.hpp"
+	"person.hpp"
+
+1750933537 c:\users\1589988\desktop\c++\trabfinalaeds\v1.0\projetofinal\person.hpp
+	<string>
+	"data.hpp"
+
+1750936205 source:c:\users\1589988\desktop\c++\trabfinalaeds\v1.0\projetofinal\person.cpp
+	<string>
+	<regex>
+	"person.hpp"
+
