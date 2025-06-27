@@ -1,5 +1,5 @@
 #include <string>
-#include <stdexcept>
+#include "customizableError.hpp"
 #include <ctime>
 #include <sstream>
 #include <iomanip>
@@ -45,17 +45,23 @@ int Date::numOfDaysInMonth(int month, int year){
 }
 Date::Date(){
     if(!this->setDate()){
-        throw runtime_error("Erro na criação da data");
+        throw CustomizableError<> ("Date construction Error", {{"type", "todays date"}});
     }
 }
 Date::Date(int day, int month, int year){
     if(!this->setDate(day, month, year)){
-        throw runtime_error("Data invalida");
+        throw CustomizableError<invalid_argument>("Date construction Error", {
+            {"type", "Invalid date"},
+            {"wrongDate", Date::stringifyAnyDate(day, month, year)}
+        });
     }
 }
-Date::Date(const std::string& dateStr){
+Date::Date(const string& dateStr){
     if(!this->setDate(dateStr)){
-        throw runtime_error("Data invalida");
+        throw CustomizableError<invalid_argument>("Date construction Error", {
+            {"type", "Invalid date"},
+            {"wrongDate", dateStr}
+        });
     }
 }
 Date::Date(const Date& date){
@@ -64,7 +70,10 @@ Date::Date(const Date& date){
 Date::Date(const Date* date): Date::Date(*date){}
 Date::Date(int year){
     if(!this->setDate(year)){
-        throw runtime_error("Data invalida");
+        throw CustomizableError<invalid_argument>("Date construction Error", {
+            {"type", "Invalid date"},
+            {"wrongDate", Date::stringifyAnyDate(1, 1, year)}
+        });
     }
 }
 
@@ -72,14 +81,16 @@ Date::Date(int year){
 int Date::getDay() const{return this->day;}
 int Date::getMonth() const{return this->month;}
 int Date::getYear() const{return this->year;}
-
-string Date::stringify() const{
+string Date::stringifyAnyDate(int day, int month, int year){
     ostringstream oss;
     oss << setfill('0')
-        << setw(2) << this->getDay() << "/"
-        << setw(2) << this->getMonth() << "/"
-        << setw(4) << this->getYear();
+        << setw(2) << day << "/"
+        << setw(2) << month << "/"
+        << setw(4) << year;
     return oss.str();
+}
+string Date::stringify() const{
+    return Date::stringifyAnyDate(this->getDay(), this->getMonth(), this->getYear());
 }
 
 bool Date::setDay(int day){

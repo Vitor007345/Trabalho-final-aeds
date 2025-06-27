@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef DATA_HPP_INCLUDED
 #define DATA_HPP_INCLUDED
+
+#include <string>
 
 //classe data feita para ser sempre válida, por isso não tem o método para conferir se é valido
 class Date{
@@ -28,6 +28,7 @@ class Date{
         int getMonth() const;
         int getYear() const;
 
+        static std::string stringifyAnyDate(int day, int month, int year);
         std::string stringify() const;
 
         bool setDay(int day);
