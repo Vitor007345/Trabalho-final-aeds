@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1751156523 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
+1751232687 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
 	<iostream>
 	"data.hpp"
 	"person.hpp"
 	"customizableError.hpp"
 	"student.hpp"
+	"teacher.hpp"
 
 1751076649 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.hpp
 	<string>
@@ -64,7 +65,7 @@
 	<initializer_list>
 	<type_traits>
 
-1751156202 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\student.hpp
+1751227497 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\student.hpp
 	<string>
 	<type_traits>
 	<utility>
@@ -76,4 +77,11 @@
 
 1751154751 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.cpp
 	"utils.hpp"
+
+1751232738 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\teacher.hpp
+	<string>
+	<type_traits>
+	<utility>
+	"customizableError.hpp"
+	"person.hpp"
 

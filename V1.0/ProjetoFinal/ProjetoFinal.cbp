@@ -39,6 +39,9 @@
 		<Unit filename="person.cpp" />
 		<Unit filename="person.hpp" />
 		<Unit filename="student.hpp" />
+		<Unit filename="teacher.hpp" />
+		<Unit filename="utils.cpp" />
+		<Unit filename="utils.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

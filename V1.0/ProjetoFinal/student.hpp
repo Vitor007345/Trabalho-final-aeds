@@ -9,27 +9,29 @@
 #include "person.hpp"
 #include "utils.hpp"
 
-//checagem de tipos
-template<typename StringCpf, typename StringName, typename IntOrString>
-struct checkTypes{
-    static constexpr bool value =
-        std::is_convertible<StringCpf, std::string>::value &&
-        std::is_convertible<StringName, std::string>::value &&
-        (std::is_convertible<IntOrString, std::string>::value ||
-         std::is_same<IntOrString, int>::value
-        )
-    ;
-};
+
 
 class Student : public Person{
     private:
         int matricula;
         static int qntOfInstances;
 
-        template<typename SringCpf, typename StringName, typename IntOrString>
+
+        //checagem de tipos
+        template<typename StringCpf, typename StringName, typename IntOrString>
+        struct checkTypes{
+            static constexpr bool value =
+                std::is_convertible<StringCpf, std::string>::value &&
+                std::is_convertible<StringName, std::string>::value &&
+                (std::is_convertible<IntOrString, std::string>::value ||
+                 std::is_same<IntOrString, int>::value
+                );
+        };
+
+        template<typename StringCpf, typename StringName, typename IntOrString>
         void configConstruction(IntOrString&& matricula){
             static_assert(
-                checkTypes<SringCpf, StringName, IntOrString>::value,
+                checkTypes<StringCpf, StringName, IntOrString>::value,
                 "cpf e nome devem ser conversiveis pra string e matricula ser int ou string"
             );
             this->setMatricula(std::forward<IntOrString>(matricula));
@@ -41,30 +43,30 @@ class Student : public Person{
             qntOfInstances++;
         }
 
-        template<typename SringCpf, typename StringName, typename IntOrString = int>
-        Student(SringCpf&& cpf, StringName&& name, IntOrString&& matricula = 0)
-            : Person(std::forward<SringCpf>(cpf), std::forward<StringName>(name))
+        template<typename StringCpf, typename StringName, typename IntOrString = int>
+        Student(StringCpf&& cpf, StringName&& name, IntOrString&& matricula = 0)
+            : Person(std::forward<StringCpf>(cpf), std::forward<StringName>(name))
         {
-            configConstruction<SringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
+            configConstruction<StringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
         }
 
-        template<typename SringCpf, typename StringName, typename IntOrString = int>
-        Student(SringCpf&& cpf, StringName&& name, int day, int month, int year, IntOrString&& matricula = 0)
-            : Person(std::forward<SringCpf>(cpf), std::forward<StringName>(name), day, month, year)
+        template<typename StringCpf, typename StringName, typename IntOrString = int>
+        Student(StringCpf&& cpf, StringName&& name, int day, int month, int year, IntOrString&& matricula = 0)
+            : Person(std::forward<StringCpf>(cpf), std::forward<StringName>(name), day, month, year)
         {
-            configConstruction<SringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
+            configConstruction<StringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
         }
 
-        template<typename SringCpf, typename StringName, typename IntOrString = int>
-        Student(SringCpf&& cpf, StringName&& name, const Date& birth, IntOrString&& matricula = 0)
-            : Person(std::forward<SringCpf>(cpf), std::forward<StringName>(name), birth)
+        template<typename StringCpf, typename StringName, typename IntOrString = int>
+        Student(StringCpf&& cpf, StringName&& name, const Date& birth, IntOrString&& matricula = 0)
+            : Person(std::forward<StringCpf>(cpf), std::forward<StringName>(name), birth)
         {
-            configConstruction<SringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
+            configConstruction<StringCpf, StringName, IntOrString>(std::forward<IntOrString>(matricula));
         }
 
-        template<typename SringCpf, typename StringName, typename IntOrString = int>
-        Student(SringCpf&& cpf, StringName&& name, const Date* birth, IntOrString&& matricula = 0)
-            : Student(std::forward<SringCpf>(cpf), std::forward<StringName>(name), *birth, std::forward<IntOrString>(matricula)) {}
+        template<typename StringCpf, typename StringName, typename IntOrString = int>
+        Student(StringCpf&& cpf, StringName&& name, const Date* birth, IntOrString&& matricula = 0)
+            : Student(std::forward<StringCpf>(cpf), std::forward<StringName>(name), *birth, std::forward<IntOrString>(matricula)) {}
 
         ~Student(){
             qntOfInstances--;
