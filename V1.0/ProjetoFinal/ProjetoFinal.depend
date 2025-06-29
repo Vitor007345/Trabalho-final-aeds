@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1751053771 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
+1751156523 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
 	<iostream>
 	"data.hpp"
 	"person.hpp"
 	"customizableError.hpp"
+	"student.hpp"
 
-1751047612 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.hpp
+1751076649 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.hpp
 	<string>
 
-1751049799 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.cpp
+1751077085 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.cpp
 	<string>
 	"customizableError.hpp"
 	<ctime>
@@ -17,16 +18,15 @@
 	<cstdio>
 	"data.hpp"
 
-1751055618 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.cpp
-	<iostream>
+1751143996 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.cpp
 	<string>
 	<regex>
+	<utility>
 	"customizableError.hpp"
 	"person.hpp"
 
-1751055618 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.hpp
+1751128565 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.hpp
 	<string>
-	<utility>
 	"customizableError.hpp"
 	"data.hpp"
 
@@ -56,11 +56,24 @@
 	<regex>
 	"person.hpp"
 
-1751031382 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\customizableerror.hpp
+1751156557 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\customizableerror.hpp
 	<stdexcept>
 	<exception>
 	<string>
 	<vector>
 	<initializer_list>
 	<type_traits>
+
+1751156202 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\student.hpp
+	<string>
+	<type_traits>
+	<utility>
+	<sstream>
+	"person.hpp"
+	"utils.hpp"
+
+1751154751 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.hpp
+
+1751154751 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.cpp
+	"utils.hpp"
 

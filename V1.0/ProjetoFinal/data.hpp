@@ -45,8 +45,8 @@ class Date{
 
         bool isLeap() const;
         int numOfDaysInMonth() const;
-        std::string strMonth() const;
-        std::string weekDay() const;
+        const std::string& strMonth() const;
+        const std::string& weekDay() const;
 
 };
 

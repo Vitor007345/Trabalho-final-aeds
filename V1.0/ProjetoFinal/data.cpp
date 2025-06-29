@@ -159,7 +159,7 @@ bool Date::isLeap() const{
 int Date::numOfDaysInMonth() const{
     return Date::numOfDaysInMonth(this->getMonth(), this->getYear());
 }
-string Date::strMonth() const{
+const string& Date::strMonth() const{
     static const string strsMonths[] = {
         "Janeiro",
         "Fevereiro",
@@ -176,7 +176,7 @@ string Date::strMonth() const{
     };
     return strsMonths[this->getMonth() - 1];
 };
-string Date::weekDay() const{
+const string& Date::weekDay() const{
     int q = this->getDay();
     int m = this->getMonth();
     int j = this->getYear() / 100;
@@ -185,7 +185,7 @@ string Date::weekDay() const{
         m += 12;
         k--;
     }
-    int h = q + (((13 * (m + 1))/5) + k + (k/4) + (j/4) - (2*j))%7;
+    int h = (q + ((13 * (m + 1))/5) + k + (k/4) + (j/4) - (2*j))%7;
     if(h < 0) h += 7;
     static const string weekDays[] = {
         "Sábado",

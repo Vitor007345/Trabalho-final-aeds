@@ -27,7 +27,7 @@ class BaseCustomizableError{
             fullStr.reserve(150);
             fullStr.append("What: ");
             fullStr.append(whatStr);
-            fullStr += "\n\n";
+            fullStr += "\n";
             for(const auto& msg: this->msgs){
                 fullStr += msg.name + ": " + msg.text + "\n";
             }
