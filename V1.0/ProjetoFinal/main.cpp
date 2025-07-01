@@ -1,4 +1,5 @@
 #include <iostream>
+#include <type_traits>
 #include "data.hpp"
 #include "person.hpp"
 #include "customizableError.hpp"
@@ -6,8 +7,18 @@
 #include "teacher.hpp"
 #include "menu.hpp"
 using namespace std;
+#define MAX_P 100
+template<typename... Args>
+void adicionarPessoa(Person* pessoas[], Args&&... argsPessoa){
+    pessoas[Person::getQntOfInstances()] = new Person(forward<Args>(argsPessoa)...);
+}
+void adicionarPessoa(Person* pessoas[]){
+    pessoas[Person::getQntOfInstances()] = new Person();
+}
+
 
 int main(){
+    Person* pessoas[MAX_P];
 
 
     Menu* menuPrincipal = new Menu();

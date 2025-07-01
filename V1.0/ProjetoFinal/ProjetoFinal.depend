@@ -135,7 +135,7 @@
 	<functional>
 	<initializer_list>
 
-1751376453 source:c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\person.cpp
+1751382908 source:c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\person.cpp
 	<string>
 	<regex>
 	<utility>
@@ -143,7 +143,7 @@
 	"customizableError.hpp"
 	"person.hpp"
 
-1751372286 c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\person.hpp
+1751382166 c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\person.hpp
 	<string>
 	"customizableError.hpp"
 	"data.hpp"
@@ -162,11 +162,13 @@
 	"teacher.hpp"
 	"menu.hpp"
 
-1751372286 c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\student.hpp
+1751382986 c:\users\1589988\desktop\trab aeds\v1.0\projetofinal\student.hpp
 	<string>
 	<type_traits>
 	<utility>
 	<sstream>
+	<cstddef>
+	"customizableError.hpp"
 	"person.hpp"
 	"utils.hpp"
 

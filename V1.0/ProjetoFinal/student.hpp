@@ -6,9 +6,10 @@
 #include <type_traits>
 #include <utility>
 #include <sstream>
+#include <cstddef>
+#include "customizableError.hpp"
 #include "person.hpp"
 #include "utils.hpp"
-
 
 
 class Student : public Person{
@@ -120,6 +121,21 @@ class Student : public Person{
 
         std::string info() const noexcept override{
             return Person::info() + "\nMatricula: " + this->getMatriculaStr();
+        }
+
+        void save(FILE* file) const override{
+            Person::save(file);
+            int matriculaNum = this->getMatricula();
+            if(!fwrite(&matriculaNum, sizeof(int), 1, file)){
+                throw CustomizableError<std::runtime_error>("Student saving error", {{"type", "matricula save"}});
+            }
+        }
+        void load(FILE* file) override{
+            Person::load(file);
+            int matriculaNum;
+            if(!fread(&matriculaNum, sizeof(int), 1, file)){
+                throw CustomizableError<std::runtime_error>("Student saving error", {{"type", "matricula load"}});
+            }
         }
 };
 

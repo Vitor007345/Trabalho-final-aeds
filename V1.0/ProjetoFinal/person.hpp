@@ -14,7 +14,9 @@ class Person{
 
         template<typename T1, typename T2>
         void personConstructionLogic(T1&& cpf, T2&& name);
+
     public:
+
         Person();
 
         Person(const std::string& cpf, const std::string& name);
