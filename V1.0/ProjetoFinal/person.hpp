@@ -89,6 +89,11 @@ class Person{
         virtual std::string info() const noexcept;
 
 
+
+        virtual void save(FILE* file) const;
+        virtual void load(FILE* file);
+
+
 };
 
 

@@ -1,6 +1,7 @@
 #include <string>
 #include <regex>
 #include <utility>
+#include <cstddef>
 #include "customizableError.hpp"
 #include "person.hpp"
 
@@ -128,5 +129,78 @@ std::string Person::info() const noexcept{
 
     return info;
 }
+
+void Person::save(FILE* file) const{
+    if(file == nullptr){
+        throw CustomizableError<invalid_argument>("Person saving error",  {{"type", "file cant be null"}});
+    }
+    //salvar cpf
+    size_t sizeCpf = this->getCpf().size();
+    if(!fwrite(&sizeCpf, sizeof(size_t), 1, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "cpf save"}, {"details", "size save"}});
+    }
+    if(!fwrite(this->getCpf().c_str(), sizeof(char), sizeCpf, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "cpf save"}, {"details", "content save"}});
+    }
+    //salvar nome
+    size_t sizeName = this->getName().size();
+    if(!fwrite(&sizeName, sizeof(size_t), 1, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "name save"}, {"details", "size save"}});
+    }
+    if(!fwrite(this->getName().c_str(), sizeof(char), sizeName, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "name save"}, {"details", "content save"}});
+    }
+    //salvar nascimento
+    bool hasBirth = this->getBirth() != nullptr;
+    if(!fwrite(&hasBirth, sizeof(bool), 1, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "birth save"}, {"details", "existance save"}});
+    }
+    if(hasBirth){
+        if(!fwrite(this->getBirth(), sizeof(Date), 1, file)){
+            throw CustomizableError<runtime_error>("Person saving error", {{"type", "birth save"}, {"details", "content save"}});
+        }
+    }
+}
+
+void Person::load(FILE* file){
+    if(file == nullptr){
+        throw CustomizableError<invalid_argument>("Person loading error",  {{"type", "file cant be null"}});
+    }
+    size_t cpfSize;
+    if(!fread(&cpfSize, sizeof(size_t), 1, file)){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "cpf load"}, {"details", "size load"}});
+    }
+    char* cpfBuffer = new char[cpfSize];
+    if(!fread(cpfBuffer, sizeof(char), cpfSize, file)){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "cpf load"}, {"details", "content load"}});
+    }
+    string cpf(cpfBuffer, cpfSize);
+
+    size_t nameSize;
+    if(!fread(&nameSize, sizeof(size_t), 1, file)){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "name load"}, {"details", "size load"}});
+    }
+    char* nameBuffer = new char[nameSize];
+    if(!fread(nameBuffer, sizeof(char), nameSize, file)){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "name load"}, {"details", "content load"}});
+    }
+    string name(nameBuffer, nameSize);
+
+    bool hasBirth;
+    Date* birth = nullptr;
+    if(!fread(&hasBirth, sizeof(bool), 1, file)){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "birth load"}, {"details", "existance load"}});
+    }
+    if(hasBirth){
+        if(!fread(birth, sizeof(Date), 1, file)){
+            throw CustomizableError<runtime_error>("Person loading error", {{"type", "birth load"}, {"details", "content load"}});
+        }
+    }
+
+    this->setCpf(move(cpf));
+    this->setName(move(name));
+    this->setBirth(birth);
+}
+
 
 

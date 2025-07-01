@@ -4,16 +4,27 @@
 #include "customizableError.hpp"
 #include "student.hpp"
 #include "teacher.hpp"
+#include "menu.hpp"
 using namespace std;
 
-int main()
-{
-    try{
+int main(){
+    Menu* menu = new Menu();
+
+    menu->addOp({"teste", [](){cout << "teste" <<endl;}});
+    menu->show();
+    menu->scanOption();
+
+    return 0;
+}
+
+
+/*
+try{
         cout << "Person:" <<Person::getQntOfInstances() <<endl;
         cout <<"Student: " <<Student::getQntOfInstances() <<endl;
-        Person* p1 = new Person("000.000.000-00", "Pinto grosso", {"11/09/2001"});
-        Person* s1 = new Student("111.000.000-00", "Pau mole", 28, 2, 2001, 123456);
-        Person* t1 = new Teacher("111.001.690-12", "pica dura", 12, 2, 1940, "Mestre");
+        Person* p1 = new Person("000.000.000-00", "joaquim", {"11/09/2001"});
+        Person* s1 = new Student("111.000.000-00", "irineu", 28, 2, 2001, 123456);
+        Person* t1 = new Teacher("111.001.690-12", "josoares", 12, 2, 1940, "Mestre");
         p1->setCpf("000.000.111-00");
         cout << "Person: " << endl;
         cout << p1->info() << endl;
@@ -32,5 +43,4 @@ int main()
     cout << "Person:" <<Person::getQntOfInstances() <<endl;
     cout <<"Student: " <<Student::getQntOfInstances() <<endl;
     cout << "Teacher: "<<Teacher::getQntOfInstances() <<endl;
-    return 0;
-}
+*/
