@@ -22,18 +22,22 @@ class Option{
 
 class Menu{
     private:
+        std::string title;
         std::vector<Option> options;
     public:
-        Menu() = default;
+        Menu(const std::string& title = std::string("MENU"));
         Menu(std::initializer_list<Option> options);
+        Menu(const std::string& title, std::initializer_list<Option> options);
 
-
+        void changeTitle(const std::string& title) noexcept;
+        const std::string& getTitle() const noexcept;
         int findOpIndex(const std::string& opText) const noexcept;
-        void show(const std::string& msg = std::string("MENU")) const noexcept;
+        void show() const noexcept;
         void scanOption() const;
         void addOp(Option option);
         bool removeOp(const std::string& opText);
         bool removeOp(int opIndex);
+        void go() const;
 
 
 };

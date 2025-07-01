@@ -5,6 +5,7 @@
 #include "customizableError.hpp"
 #include "person.hpp"
 
+
 using namespace std;
 
 
@@ -197,9 +198,20 @@ void Person::load(FILE* file){
         }
     }
 
-    this->setCpf(move(cpf));
-    this->setName(move(name));
-    this->setBirth(birth);
+    if(!this->setCpf(move(cpf))){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "cpf atribution"}});
+    }
+    if(!this->setName(move(name))){
+        throw CustomizableError<runtime_error>("Person loading error", {{"type", "name atribution"}});
+    }
+    if(hasBirth){
+        if(!this->setBirth(birth)){
+            throw CustomizableError<runtime_error>("Person loading error", {{"type", "birth atribution"}});
+        }
+    }else {
+        this->birth = nullptr;
+    }
+
 }
 
 

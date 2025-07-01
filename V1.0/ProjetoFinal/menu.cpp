@@ -28,10 +28,11 @@ void Option::setFunc(function<void(void)> func) noexcept{
 
 
 
-Menu::Menu(std::initializer_list<Option> options) : options(options) {}
-
-void Menu::show(const string& msg) const noexcept{
-    cout << "============" << msg << "============\n\n";
+Menu::Menu(const string& title) : title(title){}
+Menu::Menu(initializer_list<Option> options) : options(options) {}
+Menu::Menu(const string& title, initializer_list<Option> options) : title(title), options(options) {}
+void Menu::show() const noexcept{
+    cout << "============" << this->getTitle() << "============\n\n";
     for(int i = 0; i < this->options.size(); i++){
         cout << i << " - " << this->options[i].getText() << "\n";
     }
@@ -53,7 +54,17 @@ void Menu::scanOption() const{
 
     this->options[opIndex].exec();
 }
-int Menu::findOpIndex(const std::string& opText) const noexcept{
+void Menu::changeTitle(const string& title) noexcept{
+    this->title = title;
+}
+const string& Menu::getTitle() const noexcept{
+    return this->title;
+}
+void Menu::go() const{
+    this->show();
+    this->scanOption();
+}
+int Menu::findOpIndex(const string& opText) const noexcept{
     int index = 0;
     bool encontrou = false;
     while(!encontrou && index < this->options.size()){
@@ -67,7 +78,7 @@ int Menu::findOpIndex(const std::string& opText) const noexcept{
 void Menu::addOp(Option option){
     this->options.push_back(option);
 }
-bool Menu::removeOp(const std::string& opText){
+bool Menu::removeOp(const string& opText){
     int index = this->findOpIndex(opText);
     bool success = false;
     if(index != -1){

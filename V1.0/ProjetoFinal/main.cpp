@@ -8,11 +8,60 @@
 using namespace std;
 
 int main(){
-    Menu* menu = new Menu();
 
-    menu->addOp({"teste", [](){cout << "teste" <<endl;}});
-    menu->show();
-    menu->scanOption();
+
+    Menu* menuPrincipal = new Menu();
+
+    //opção geral que aparece em quase todos
+    Option opVoltar("Voltar ao menu principal", [&menuPrincipal](){
+        menuPrincipal->go();
+    });
+
+    menuPrincipal->addOp({"Sair do programa", [](){
+        cout << "aqui a função pra sair" << endl;
+    }});
+
+    //Menu cadastro
+    Menu* menuCadastro = new Menu("Cadastro");
+    menuCadastro->addOp(opVoltar);
+
+    menuCadastro->addOp({"Cadastrar Professor", [&menuCadastro](){
+        cout << "aqui o processo de cadastrar professor" << endl;
+        menuCadastro->go();
+    }});
+    menuCadastro->addOp({"Cadastrar Aluno", [&menuCadastro](){
+        cout << "aqui o processo de cadastrar aluno" << endl;
+        menuCadastro->go();
+    }});
+
+    menuPrincipal->addOp({"Cadastrar uma pessoa", [&menuCadastro](){
+        menuCadastro->go();
+    }});
+
+    //menu listar pessoas
+    Menu* menuListar = new Menu("Listar");
+    menuListar->addOp(opVoltar);
+    menuListar->addOp({"Listar Professores", [&menuListar](){
+        cout << "aqui o processo de listar professor" << endl;
+        menuListar->go();
+    }});
+    menuListar->addOp({"Listar Alunos", [&menuListar](){
+        cout << "aqui o processo de listar alunos" << endl;
+        menuListar->go();
+    }});
+
+    menuPrincipal->addOp({"Listar pessoas", [&menuListar](){
+        menuListar->go();
+    }});
+
+
+    menuPrincipal->go();
+
+
+
+    delete menuPrincipal;
+    delete menuCadastro;
+
 
     return 0;
 }
