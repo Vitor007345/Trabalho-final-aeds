@@ -1,7 +1,7 @@
 #ifndef STUDENT_HPP_INCLUDED
 #define STUDENT_HPP_INCLUDED
 
-
+#include <iostream>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -39,6 +39,10 @@ class Student : public Person{
             qntOfInstances++;
         }
     public:
+        Type getType() const noexcept override{
+            return Person::Type::STUDENT;
+        }
+
         Student() : Person() {
             this->setMatricula(0);
             qntOfInstances++;
@@ -123,6 +127,21 @@ class Student : public Person{
             return Person::info() + "\nMatricula: " + this->getMatriculaStr();
         }
 
+        void cadastrar() noexcept override{
+            Person::cadastrar();
+            bool erro;
+            int matricula;
+            do{
+                std::cout << "Digite o número de matricula: ";
+                std::cin >> matricula;
+                erro = !this->setMatricula(matricula);
+                if(erro){
+                    std::cout << "Número de matricula invalido, prescisa ser um número com no max 6 digitos" << std::endl;
+                }
+            }while(erro);
+
+        }
+
         void save(FILE* file) const override{
             Person::save(file);
             int matriculaNum = this->getMatricula();
@@ -134,7 +153,7 @@ class Student : public Person{
             Person::load(file);
             int matriculaNum;
             if(!fread(&matriculaNum, sizeof(int), 1, file)){
-                throw CustomizableError<std::runtime_error>("Student saving error", {{"type", "matricula load"}});
+                throw CustomizableError<std::runtime_error>("Student loading error", {{"type", "matricula load"}});
             }
         }
 };

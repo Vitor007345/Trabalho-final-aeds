@@ -16,6 +16,11 @@ class Person{
         void personConstructionLogic(T1&& cpf, T2&& name);
 
     public:
+        enum class Type{
+            STUDENT = 1,
+            TEACHER = 2
+        };
+        virtual Type getType() const noexcept = 0;
 
         Person();
 
@@ -90,6 +95,7 @@ class Person{
 
         virtual std::string info() const noexcept;
 
+        virtual void cadastrar() noexcept;
 
 
         virtual void save(FILE* file) const;

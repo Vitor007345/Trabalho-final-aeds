@@ -1,4 +1,6 @@
 #include "utils.hpp"
+#include <cctype>
+using namespace std;
 
 int numDigits(int num){
     int numOfDigits = 0;
@@ -13,4 +15,28 @@ int numDigits(int num){
     }
     return numOfDigits;
 
+}
+
+string tolowerStr(string str){
+    for(char& c : str){
+        c = tolower(c);
+    }
+    return str;
+}
+
+
+bool equalStrIgnoreCase(const string& str1, const string& str2){
+    bool igual = false;
+    if(str1.size() == str2.size()){
+        igual = true;
+        int i = 0;
+        while(igual && i < str1.size()){
+            if(tolower(str1[i]) != tolower(str2[i])){
+                igual = false;
+            }
+            i++;
+        }
+    }
+
+    return igual;
 }

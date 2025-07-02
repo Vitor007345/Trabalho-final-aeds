@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <regex>
 #include <utility>
@@ -131,10 +132,49 @@ std::string Person::info() const noexcept{
     return info;
 }
 
+void Person::cadastrar() noexcept{
+    bool erro;
+    string cpf;
+    do{
+        cout << "Digite o cpf: ";
+        cin >> cpf;
+        erro = !this->setCpf(move(cpf));
+        if(erro){
+            cout << "Cpf invalido" << endl;
+        }
+    }while(erro);
+    string name;
+    do{
+        cout << "Digite o nome: ";
+        cin.ignore();
+        getline(cin, name);
+        erro = !this->setName(move(name));
+        if(erro){
+            cout << "Nome invalido" << endl;
+        }
+    }while(erro);
+    string birthStr;
+    do{
+        cout << "Digite a data de nascimento(xx/xx/xxxx): ";
+        cin >> birthStr;
+        erro = !this->setBirth(birthStr);
+        if(erro){
+            cout << "Data invalida" << endl;
+        }
+    }while(erro);
+}
+
 void Person::save(FILE* file) const{
     if(file == nullptr){
         throw CustomizableError<invalid_argument>("Person saving error",  {{"type", "file cant be null"}});
     }
+
+    //salvar tipo
+    Person::Type pType = this->getType();
+    if(!fwrite(&pType, sizeof(Person::Type), 1, file)){
+        throw CustomizableError<runtime_error>("Person saving error", {{"type", "Person::Type save"}});
+    }
+
     //salvar cpf
     size_t sizeCpf = this->getCpf().size();
     if(!fwrite(&sizeCpf, sizeof(size_t), 1, file)){
@@ -167,6 +207,8 @@ void Person::load(FILE* file){
     if(file == nullptr){
         throw CustomizableError<invalid_argument>("Person loading error",  {{"type", "file cant be null"}});
     }
+
+    //leitura cpf
     size_t cpfSize;
     if(!fread(&cpfSize, sizeof(size_t), 1, file)){
         throw CustomizableError<runtime_error>("Person loading error", {{"type", "cpf load"}, {"details", "size load"}});
@@ -177,6 +219,7 @@ void Person::load(FILE* file){
     }
     string cpf(cpfBuffer, cpfSize);
 
+    //leitura nome
     size_t nameSize;
     if(!fread(&nameSize, sizeof(size_t), 1, file)){
         throw CustomizableError<runtime_error>("Person loading error", {{"type", "name load"}, {"details", "size load"}});
@@ -187,6 +230,7 @@ void Person::load(FILE* file){
     }
     string name(nameBuffer, nameSize);
 
+    //leitura data
     bool hasBirth;
     Date* birth = nullptr;
     if(!fread(&hasBirth, sizeof(bool), 1, file)){
@@ -198,6 +242,7 @@ void Person::load(FILE* file){
         }
     }
 
+    //atribuições
     if(!this->setCpf(move(cpf))){
         throw CustomizableError<runtime_error>("Person loading error", {{"type", "cpf atribution"}});
     }

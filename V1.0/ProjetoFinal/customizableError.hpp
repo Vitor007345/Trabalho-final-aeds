@@ -8,6 +8,7 @@
 #include <vector>
 #include <initializer_list>
 #include <type_traits>
+#include <utility>
 
 class ErrorMessage{
 public:
@@ -45,6 +46,8 @@ class BaseCustomizableError{
         };
 
         virtual const char* what() const noexcept = 0;
+        virtual void addMsg(ErrorMessage&& msg) noexcept = 0;
+        virtual void addMsg(const ErrorMessage& msg) noexcept = 0;
 
 };
 
@@ -89,6 +92,13 @@ class CustomizableError: public BaseException, public BaseCustomizableError{
         const char* what() const noexcept override{
             return BaseException::what();
         }
+
+         void addMsg(ErrorMessage&& msg) noexcept override{
+             this->msgs.push_back(std::move(msg));
+         }
+         void addMsg(const ErrorMessage& msg) noexcept override{
+             this->msgs.push_back(msg);
+         }
 
 };
 

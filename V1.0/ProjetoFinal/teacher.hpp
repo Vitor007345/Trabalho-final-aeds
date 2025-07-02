@@ -1,9 +1,11 @@
 #ifndef TEACHER_HPP_INCLUDED
 #define TEACHER_HPP_INCLUDED
 
+#include <iostream>
 #include <string>
 #include <type_traits>
 #include <utility>
+#include "utils.hpp"
 #include "customizableError.hpp"
 #include "person.hpp"
 
@@ -16,7 +18,7 @@ enum class Titulacao{
 class Teacher : public Person{
     private:
         Titulacao titulo;
-        static const std::string titulacoes[];
+        static const std::string titulacoes[4];
         static int qntOfInstances;
 
 
@@ -63,6 +65,9 @@ class Teacher : public Person{
 
     public:
 
+        Type getType() const noexcept override{
+            return Person::Type::TEACHER;
+        }
 
         Teacher() : Person(){
             this->basicConfigConstruction();
@@ -132,13 +137,13 @@ class Teacher : public Person{
         bool setTitulo(const std::string& titulo) noexcept{
             bool success = true;
 
-            if(titulo == titulacoes[(int)Titulacao::Nenhuma]){
+            if(equalStrIgnoreCase(titulo, titulacoes[(int)Titulacao::Nenhuma])){
                 this->titulo = Titulacao::Nenhuma;
-            }else if(titulo == titulacoes[(int)Titulacao::Especialista]){
+            }else if(equalStrIgnoreCase(titulo, titulacoes[(int)Titulacao::Especialista])){
                 this->titulo = Titulacao::Especialista;
-            }else if(titulo == titulacoes[(int)Titulacao::Mestre]){
+            }else if(equalStrIgnoreCase(titulo, titulacoes[(int)Titulacao::Mestre])){
                 this->titulo = Titulacao::Mestre;
-            }else if(titulo == titulacoes[(int)Titulacao::Doutor]){
+            }else if(equalStrIgnoreCase(titulo, titulacoes[(int)Titulacao::Doutor])){
                 this->titulo = Titulacao::Doutor;
             }else{
                 success = false;
@@ -148,6 +153,48 @@ class Teacher : public Person{
 
         std::string info() const noexcept override{
             return Person::info() + "\nTitulação: " + this->getTituloStr();
+        }
+
+        void cadastrar() noexcept override{
+            Person::cadastrar();
+            bool erro;
+            std::string titulo;
+            do{
+                std::cout << "Digite o titulo(";
+                bool primeiro = true;
+                for(const std::string& t: titulacoes){
+                    if(primeiro){
+                        primeiro = false;
+                    }else{
+                        std::cout << ", ";
+                    }
+                    std::cout << t;
+                }
+                std::cout << "): ";
+                std::cin >> titulo;
+                erro = !this->setTitulo(titulo);
+                if(erro){
+                    std::cout << "Titulo invalido" << std::endl;
+                }
+            }while(erro);
+        }
+
+        void save(FILE* file) const override{
+            Person::save(file);
+            Titulacao titulo = this->getTitulo();
+            if(!fwrite(&titulo, sizeof(Titulacao), 1, file)){
+                throw CustomizableError<std::runtime_error>("Techer saving error", {{"type", "titulo save"}});
+            }
+        }
+        void load(FILE* file) override{
+            Person::load(file);
+            Titulacao titulo;
+            if(!fread(&titulo, sizeof(Titulacao), 1, file)){
+                throw CustomizableError<std::runtime_error>("Teacher loading error", {{"type", "titulo load"}});
+            }
+            if(!this->setTitulo(titulo)){
+                throw CustomizableError<std::runtime_error>("Teacher loading error", {{"type", "titulo atribution"}});
+            }
         }
 
 
