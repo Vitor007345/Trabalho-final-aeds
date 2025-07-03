@@ -12,6 +12,7 @@
 #include "utils.hpp"
 
 using namespace std;
+
 #define MAX_P 100
 #define DIR_TAM "data/tam.dat"
 #define DIR_P "data/pessoas.dat"
