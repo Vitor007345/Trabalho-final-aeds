@@ -40,3 +40,26 @@ bool equalStrIgnoreCase(const string& str1, const string& str2){
 
     return igual;
 }
+
+
+bool includesIgnoreCase(const string& texto, const string& busca){
+    bool includes = false;
+    if(busca.empty()){
+        includes = true;
+    }else if(texto.size() < busca.size()){
+        includes = false;
+    }else{
+        int i = 0;
+        while(!includes && i <= texto.size() - busca.size()){
+            int j = 0;
+            includes = true;
+            while(includes && j < busca.size()){
+                if(tolower(texto[i + j]) != tolower(busca[j])) includes = false;
+                j++;
+            }
+            i++;
+        }
+    }
+
+    return includes;
+}

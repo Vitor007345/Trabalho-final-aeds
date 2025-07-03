@@ -127,8 +127,8 @@ class Student : public Person{
             return Person::info() + "\nMatricula: " + this->getMatriculaStr();
         }
 
-        void cadastrar() noexcept override{
-            Person::cadastrar();
+        void cadastrar(Person* pessoas[]) noexcept override{
+            Person::cadastrar(pessoas);
             bool erro;
             int matricula;
             do{
@@ -155,6 +155,10 @@ class Student : public Person{
             if(!fread(&matriculaNum, sizeof(int), 1, file)){
                 throw CustomizableError<std::runtime_error>("Student loading error", {{"type", "matricula load"}});
             }
+            if(!this->setMatricula(matriculaNum)){
+                throw CustomizableError<std::runtime_error>("Student loading error", {{"type", "matricula atribution"}});
+            }
+
         }
 };
 

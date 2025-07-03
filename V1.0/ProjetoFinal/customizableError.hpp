@@ -90,7 +90,8 @@ class CustomizableError: public BaseException, public BaseCustomizableError{
 
 
         const char* what() const noexcept override{
-            return BaseException::what();
+            return fullMsg().c_str();
+            //return BaseException::what();
         }
 
          void addMsg(ErrorMessage&& msg) noexcept override{

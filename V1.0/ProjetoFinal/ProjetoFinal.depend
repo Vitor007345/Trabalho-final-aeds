@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1751422186 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
+1751503099 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\main.cpp
 	<iostream>
 	<type_traits>
 	<cctype>
@@ -11,6 +11,7 @@
 	"student.hpp"
 	"teacher.hpp"
 	"menu.hpp"
+	"utils.hpp"
 
 1751076649 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\data.hpp
 	<string>
@@ -24,7 +25,7 @@
 	<cstdio>
 	"data.hpp"
 
-1751400662 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.cpp
+1751491878 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.cpp
 	<iostream>
 	<string>
 	<regex>
@@ -33,7 +34,7 @@
 	"customizableError.hpp"
 	"person.hpp"
 
-1751395186 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.hpp
+1751491568 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\person.hpp
 	<string>
 	"customizableError.hpp"
 	"data.hpp"
@@ -64,7 +65,7 @@
 	<regex>
 	"person.hpp"
 
-1751418509 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\customizableerror.hpp
+1751475092 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\customizableerror.hpp
 	<stdexcept>
 	<exception>
 	<string>
@@ -73,7 +74,7 @@
 	<type_traits>
 	<utility>
 
-1751400062 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\student.hpp
+1751491568 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\student.hpp
 	<iostream>
 	<string>
 	<type_traits>
@@ -84,14 +85,15 @@
 	"person.hpp"
 	"utils.hpp"
 
-1751398640 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.hpp
+1751501556 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.hpp
 	<string>
+	<functional>
 
-1751398640 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.cpp
+1751487530 source:c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\utils.cpp
 	"utils.hpp"
 	<cctype>
 
-1751415507 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\teacher.hpp
+1751491568 c:\users\vitor\desktop\trabalho final aeds\v1.0\projetofinal\teacher.hpp
 	<iostream>
 	<string>
 	<type_traits>

@@ -155,8 +155,8 @@ class Teacher : public Person{
             return Person::info() + "\nTitulação: " + this->getTituloStr();
         }
 
-        void cadastrar() noexcept override{
-            Person::cadastrar();
+        void cadastrar(Person* pessoas[]) noexcept override{
+            Person::cadastrar(pessoas);
             bool erro;
             std::string titulo;
             do{

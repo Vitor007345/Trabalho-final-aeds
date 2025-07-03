@@ -95,7 +95,7 @@ class Person{
 
         virtual std::string info() const noexcept;
 
-        virtual void cadastrar() noexcept;
+        virtual void cadastrar(Person* pessoas[]) noexcept;
 
 
         virtual void save(FILE* file) const;

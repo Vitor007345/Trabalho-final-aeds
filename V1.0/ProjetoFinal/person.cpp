@@ -103,9 +103,18 @@ bool Person::setName(const string& name) noexcept{
 
 bool Person::setCpf(string&& cpf) noexcept{
     bool success = false;
-    static const regex cpfRegex(R"(\d{3}\.\d{3}\.\d{3}-\d{2})");
-    if(regex_match(cpf, cpfRegex)){
+    static const regex cpfRegex1(R"(\d{3}\.\d{3}\.\d{3}-\d{2})");
+    static const regex cpfRegex2(R"(\d{11})");
+    if(regex_match(cpf, cpfRegex1)){
         this->cpf = move(cpf);
+        success = true;
+    }else if(regex_match(cpf, cpfRegex2)){
+        this->cpf = "";
+        for(int i = 0; i < cpf.size(); i++){
+            if(i == 9) this->cpf += '-';
+            else if(i != 0 && i % 3 == 0) this->cpf += '.';
+            this->cpf += cpf[i];
+        }
         success = true;
     }
     return success;
@@ -132,7 +141,7 @@ std::string Person::info() const noexcept{
     return info;
 }
 
-void Person::cadastrar() noexcept{
+void Person::cadastrar(Person* pessoas[]) noexcept{
     bool erro;
     string cpf;
     do{
@@ -141,6 +150,16 @@ void Person::cadastrar() noexcept{
         erro = !this->setCpf(move(cpf));
         if(erro){
             cout << "Cpf invalido" << endl;
+        }
+        if(!erro){
+            int i = 0;
+            while(!erro && i < Person::getQntOfInstances()){
+                if(pessoas[i] != this && pessoas[i]->getCpf() == this->getCpf()){
+                    erro = true;
+                    cout << "Já existe uma pessoa cadastrada com esse cpf" << endl;
+                }
+                i++;
+            }
         }
     }while(erro);
     string name;
@@ -170,8 +189,8 @@ void Person::save(FILE* file) const{
     }
 
     //salvar tipo
-    Person::Type pType = this->getType();
-    if(!fwrite(&pType, sizeof(Person::Type), 1, file)){
+    int pType = (int)this->getType();
+    if(!fwrite(&pType, sizeof(int), 1, file)){
         throw CustomizableError<runtime_error>("Person saving error", {{"type", "Person::Type save"}});
     }
 
@@ -232,12 +251,12 @@ void Person::load(FILE* file){
 
     //leitura data
     bool hasBirth;
-    Date* birth = nullptr;
+    Date birth;
     if(!fread(&hasBirth, sizeof(bool), 1, file)){
         throw CustomizableError<runtime_error>("Person loading error", {{"type", "birth load"}, {"details", "existance load"}});
     }
     if(hasBirth){
-        if(!fread(birth, sizeof(Date), 1, file)){
+        if(!fread(&birth, sizeof(Date), 1, file)){
             throw CustomizableError<runtime_error>("Person loading error", {{"type", "birth load"}, {"details", "content load"}});
         }
     }
